@@ -672,3 +672,7 @@ It's been reported that this causes major slowdowns with the new ppsspp emulator
 * Update Emulationstation - fixed folder icons not displaying correctly
 * Update picodrive core to 2.05-7cbcd41 - Doom CD 32X fusion working with this version
 * Remove Emulationstation theme SagaBox - incompatible with 480x320
+
+## November 23, 2025
+* Add script to prettify /roms/ports/gamelist.xml - there's a bug that sometimes causes new scrapes to all write to one line.
+* Add text_viewer to /opt/inttools/
