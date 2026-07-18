@@ -1,7 +1,7 @@
 #!/bin/bash
 clear
 
-UPDATE_DATE="11232025"
+UPDATE_DATE="07182026"
 LOG_FILE="/home/ark/update$UPDATE_DATE.log"
 UPDATE_DONE="/home/ark/.config/.update$UPDATE_DATE"
 
@@ -2240,6 +2240,68 @@ if [ ! -f "/home/ark/.config/.update11232025" ]; then
       sudo ln -sfv /usr/lib/arm-linux-gnueabihf/libSDL2-2.0.so.0.3000.10 /usr/lib/arm-linux-gnueabihf/libSDL2.so | tee -a "$LOG_FILE"
 
   touch "/home/ark/.config/.update11232025"
+
+fi
+
+
+if [ ! -f "/home/ark/.config/.update07182026" ]; then
+
+  printf "\nAdd scripts to Enable and Disable SWAP, set SNES9X as default core for Sufami Turbo, update 64-Bit hatarib_libretro, mgba_libretro, mgba_rumble_libretro, and virtualjaguar_libretro cores, fix PPSSPP low-res menu scaling \n" | tee -a "$LOG_FILE"
+  sudo wget --no-check-certificate https://github.com/wummle/arkos/raw/main/07182026/arkosupdate07182026.zip -O /home/ark/arkosupdate07182026.zip -a "$LOG_FILE" || rm -f /home/ark/arkosupdate07182026.zip | tee -a "$LOG_FILE"
+  if [ -f "/home/ark/arkosupdate07182026.zip" ]; then
+    sudo unzip -X -o /home/ark/arkosupdate07182026.zip -d / | tee -a "$LOG_FILE"
+    sudo rm -v /home/ark/arkosupdate07182026.zip | tee -a "$LOG_FILE"
+  else
+    printf "\nThe update couldn't complete because the package did not download correctly.\nPlease retry the update again." | tee -a "$LOG_FILE"
+    sleep 3
+    echo $c_brightness > /sys/devices/platform/backlight/backlight/backlight/brightness
+    exit 1
+  fi
+
+    printf "\n ---CORES--- \n" | tee -a "$LOG_FILE"
+    printf "\n Update mgba and mgba_rumble and to address compatibility with RetroArch v1.20+ \n" | tee -a "$LOG_FILE"
+    printf "\n Update hatarib libretro core to v0.4 \n" | tee -a "$LOG_FILE"
+    printf "\n Update virtualjaguar libretro core to v2.1.0 \n" | tee -a "$LOG_FILE"
+    printf "\n Switch Sufami Turbo default core to SNES9X \n" | tee -a "$LOG_FILE"
+    printf "\n PPSSPP 1.17.1 with proper low-res scaled menus \n" | tee -a "$LOG_FILE"
+
+    printf "\n ---TOOLS--- \n" | tee -a "$LOG_FILE"
+    printf "\n Add scripts to enable and disable SWAP \n" | tee -a "$LOG_FILE"
+
+      sudo chown -R ark:ark /opt/
+
+    printf "\nMake sure permissions for the ark home directory are set to 755\n" | tee -a "$LOG_FILE"
+      sudo chown -R ark:ark /home/ark
+      sudo chmod -R 755 /home/ark
+
+    sudo rm -rf /dev/shm/*
+
+    printf "\n Set permissions on es_systems.cfg in case they were altered \n" | tee -a "$LOG_FILE"
+      sudo chmod ugo+rwx /etc/emulationstation/es_systems.cfg
+
+    printf "\n Ensure proper permissions on retroarch cores \n" | tee -a "$LOG_FILE"
+      sudo chmod 755 ~/.config/retroarch/cores/hatarib_libretro.*
+      sudo chmod 755 ~/.config/retroarch/cores/mgba_libretro.*
+      sudo chmod 755 ~/.config/retroarch/cores/mgba_rumble_libretro.*
+      sudo chmod 755 ~/.config/retroarch/cores/virtualjaguar_libretro.*
+
+    printf "\n Ensure proper permissions are set for PPSSPP \n" | tee -a "$LOG_FILE"
+      sudo chmod 777 /opt/ppsspp/PPSSPPSDL
+      sudo chmod 755 -R /opt/ppsspp/assets
+
+    printf "\n Ensure proper permissions are set for system launch scripts and asoundfix \n" | tee -a "$LOG_FILE"
+      sudo chmod 777 /opt/system/Advanced/*.sh
+      sudo chmod ugo+rw /opt/system/Advanced/asoundfix.zip
+
+    printf "\nEnsure 64bit and 32bit SDL2 are still properly linked\n" | tee -a "$LOG_FILE"
+      sudo ln -sfv /usr/lib/aarch64-linux-gnu/libSDL2.so /usr/lib/aarch64-linux-gnu/libSDL2-2.0.so.0 | tee -a "$LOG_FILE"
+      sudo ln -sfv /usr/lib/aarch64-linux-gnu/libSDL2-2.0.so.0 /usr/lib/aarch64-linux-gnu/libSDL2-2.0.so | tee -a "$LOG_FILE"
+      sudo ln -sfv /usr/lib/aarch64-linux-gnu/libSDL2-2.0.so.0.3000.10 /usr/lib/aarch64-linux-gnu/libSDL2.so | tee -a "$LOG_FILE"
+      sudo ln -sfv /usr/lib/arm-linux-gnueabihf/libSDL2.so /usr/lib/arm-linux-gnueabihf/libSDL2-2.0.so.0 | tee -a "$LOG_FILE"
+      sudo ln -sfv /usr/lib/arm-linux-gnueabihf/libSDL2-2.0.so.0 /usr/lib/arm-linux-gnueabihf/libSDL2-2.0.so | tee -a "$LOG_FILE"
+      sudo ln -sfv /usr/lib/arm-linux-gnueabihf/libSDL2-2.0.so.0.3000.10 /usr/lib/arm-linux-gnueabihf/libSDL2.so | tee -a "$LOG_FILE"
+
+  touch "/home/ark/.config/.update07182026"
 
 fi
 
