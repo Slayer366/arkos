@@ -676,3 +676,11 @@ It's been reported that this causes major slowdowns with the new ppsspp emulator
 ## November 23, 2025
 * Add script to prettify /roms/ports/gamelist.xml - there's a bug that sometimes causes new scrapes to all write to one line.
 * Add text_viewer to /opt/inttools/
+
+## July 18, 2026
+* Add scripts to enable and disable SWAP
+* Update mgba and mgba_rumble and to address compatibility with RetroArch v1.20+
+* Update hatarib libretro core to v0.4
+* Update virtualjaguar libretro core to v2.1.0
+* Switch Sufami Turbo default core from SNES9x2010 to SNES9X
+* PPSSPP 1.17.1 with proper low-res scaled menus
